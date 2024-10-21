@@ -13,7 +13,8 @@ class ForumIndexController extends Controller
         return inertia()->render('Forum/Index', [
             'discussions' => DiscussionResource::collection(Discussion::query()
                 ->with(['topic'])
-                ->orderBy('created_at', 'desc')
+                ->orderByPinned()
+                //->latest()
                 ->paginate(10)
             ),
         ]);
