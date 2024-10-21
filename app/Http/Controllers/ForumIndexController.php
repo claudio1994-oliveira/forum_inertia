@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DiscussionResource;
+use App\Models\Discussion;
 use Illuminate\Http\Request;
 
 class ForumIndexController extends Controller
 {
     public function __invoke()
     {
-        return inertia()->render('Forum/Index');
+        return inertia()->render('Forum/Index', [
+            'discussions' => DiscussionResource::collection(Discussion::query()
+                ->with(['topic'])
+                ->orderBy('created_at', 'desc')
+                ->paginate(10)
+            ),
+        ]);
     }
 }
