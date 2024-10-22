@@ -14,7 +14,7 @@ class ForumIndexController extends Controller
             'discussions' => DiscussionResource::collection(Discussion::query()
                 ->with(['topic'])
                 ->orderByPinned()
-                //->latest()
+                ->latest()
                 ->paginate(10)
             ),
         ]);

@@ -6,6 +6,7 @@ import {usePage} from "@inertiajs/vue3";
 import Select from "@/Components/Select.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import Discussion from "@/Components/Forum/Discussion.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 const page = usePage();
 const topics = page.props.topics;
@@ -40,6 +41,7 @@ defineProps({
                 </div>
                 <div class="space-y-3">
                     <Discussion v-for="discussion in discussions.data" :key="discussion.id" :discussion="discussion"/>
+                    <Pagination :meta="discussions.meta"/>
                 </div>
 
             </div>
