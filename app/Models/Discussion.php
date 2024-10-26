@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder;
 
 class Discussion extends Model
@@ -13,7 +15,7 @@ class Discussion extends Model
     public function scopeOrderByPinned($query)
     {
         return $query->orderBy('pinned_at', 'desc');
-   
+
     }
 
     public function isPinned(): bool
@@ -29,5 +31,15 @@ class Discussion extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function post(): HasOne
+    {
+        return $this->hasOne(Post::class)->where('parent_id', null);
     }
 }
