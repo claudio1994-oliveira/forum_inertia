@@ -5,12 +5,14 @@ import ForumLayout from "@/Layouts/ForumLayout.vue";
 import {usePage} from "@inertiajs/vue3";
 import Discussion from "@/Components/Forum/Discussion.vue";
 import Pagination from "@/Components/Pagination.vue";
+import Post from "@/Components/Forum/Post.vue";
 
 const page = usePage();
 const topics = page.props.topics;
 
 defineProps({
     discussion: Object,
+    posts: Object
 })
 
 </script>
@@ -42,6 +44,9 @@ defineProps({
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="space-y-3">
+                <Post v-for="post in posts.data" :key="post.id" :post="post"/>
             </div>
 
         </div>
