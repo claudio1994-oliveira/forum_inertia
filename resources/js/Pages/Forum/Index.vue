@@ -40,8 +40,12 @@ defineProps({
                     </div>
                 </div>
                 <div class="space-y-3">
-                    <Discussion v-for="discussion in discussions.data" :key="discussion.id" :discussion="discussion"/>
-                    <Pagination :meta="discussions.meta"/>
+                    <template v-if="discussions.data.length">
+                        <Discussion v-for="discussion in discussions.data" :key="discussion.id"
+                                    :discussion="discussion"/>
+                        <Pagination :meta="discussions.meta"/>
+                    </template>
+
                 </div>
 
             </div>

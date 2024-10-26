@@ -46,7 +46,11 @@ defineProps({
                 </div>
             </div>
             <div class="space-y-3">
-                <Post v-for="post in posts.data" :key="post.id" :post="post"/>
+                <template v-if="posts.data.length">
+                    <Post v-for="post in posts.data" :key="post.id" :post="post"/>
+                    <Pagination :meta="posts.meta"/>
+                </template>
+
             </div>
 
         </div>
