@@ -27,6 +27,12 @@ defineProps({
                 <div class="mt-3 text-sm text-gray-500 line-clamp-1">
                     {{ discussion.post.body_preview }}
                 </div>
+                <div>
+                    <Link :href="route('discussion.show', discussion.slug)" class="inline-block mt-6 text-sm">
+                        Last post by {{ discussion.latest_post.user.username }} at <time :datetime="discussion.latest_post.created_at.datetime"
+                        :title="discussion.latest_post.created_at.datetime">{{ discussion.latest_post.created_at.human }}</time>
+                    </Link>
+                </div>
             </div>
             <div>
                 Avatars

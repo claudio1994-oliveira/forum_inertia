@@ -15,7 +15,6 @@ class Discussion extends Model
     public function scopeOrderByPinned($query)
     {
         return $query->orderBy('pinned_at', 'desc');
-
     }
 
     public function isPinned(): bool
@@ -41,5 +40,10 @@ class Discussion extends Model
     public function post(): HasOne
     {
         return $this->hasOne(Post::class)->where('parent_id', null);
+    }
+
+    public function latestPost()
+    {
+        return $this->hasOne(Post::class)->latestOfMany();
     }
 }
