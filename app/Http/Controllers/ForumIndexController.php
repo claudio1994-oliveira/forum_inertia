@@ -11,11 +11,12 @@ class ForumIndexController extends Controller
     public function __invoke()
     {
         return inertia()->render('Forum/Index', [
-            'discussions' => DiscussionResource::collection(Discussion::query()
-                ->with(['topic'])
-                ->orderByPinned()
-                ->latest()
-                ->paginate(10)
+            'discussions' => DiscussionResource::collection(
+                Discussion::query()
+                    ->with(['topic', 'post'])
+                    ->orderByPinned()
+                    ->latest()
+                    ->paginate(10)
             ),
         ]);
     }
