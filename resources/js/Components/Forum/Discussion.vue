@@ -34,9 +34,17 @@ defineProps({
                     </Link>
                 </div>
             </div>
-            <div>
-                Avatars
+            <div class="flex-shrink-0 w-20">
+               <div class="flex items-center justify-start -space-x-2 ring-2 ring-white first-of-type:w-7 first-of-type:h-7">
+
+                <img class="w-6 h-6 rounded-full"
+                v-for="participant in discussion.participants" :key="participant.id" :src="participant.avatar_url"
+                :alt="participant.username"
+                :title="participant.username"
+                >
+               </div>
             </div>
+
         </div>
     </Link>
 
