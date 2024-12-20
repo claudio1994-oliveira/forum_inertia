@@ -1,10 +1,16 @@
 <script setup>
 import {Link} from '@inertiajs/vue3';
+import { computed } from 'vue';
 
-defineProps({
+const props = defineProps({
     discussion: Object,
-
 })
+
+const participants = computed(() => {
+    return props.discussion.participants.slice(0, 3);
+});
+
+
 </script>
 
 <template>
@@ -35,14 +41,19 @@ defineProps({
                 </div>
             </div>
             <div class="flex-shrink-0 w-20">
-               <div class="flex items-center justify-start -space-x-2 ring-2 ring-white first-of-type:w-7 first-of-type:h-7">
+                <div class="flex flex-col items-center space-x-3">
+                    <div class="flex items-center justify-start -space-x-2 ring-2 ring-white first-of-type:w-7 first-of-type:h-7">
 
-                <img class="w-6 h-6 rounded-full"
-                v-for="participant in discussion.participants" :key="participant.id" :src="participant.avatar_url"
-                :alt="participant.username"
-                :title="participant.username"
-                >
-               </div>
+                    <img class="w-6 h-6 rounded-full"
+                    v-for="participant in participants" :key="participant.id" :src="participant.avatar_url"
+                    :alt="participant.username"
+                    :title="participant.username"
+                    >
+
+                    </div>
+                    <span class="text-sm text-gray-600" v-if="discussion.participants.length > 3">+ {{discussion.participants.length - 3  }} more</span>
+                </div>
+
             </div>
 
         </div>
@@ -50,6 +61,3 @@ defineProps({
 
 </template>
 
-<style scoped>
-
-</style>
