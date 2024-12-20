@@ -9,14 +9,14 @@ defineProps({
 
 <template>
     <div
-        class=" overflow-hidden bg-white shadow-sm sm:rounded-lg my-4 p-6 text-gray-900 flex items-start space-x-3">
+        class="flex items-start p-6 my-4 space-x-3 overflow-hidden text-gray-900 bg-white shadow-sm sm:rounded-lg">
 
-        <div class="w-7 flex-shrink-0">
-            <img :src="post.user.avatar_url" alt="avatar" class="rounded-full w-7 h-7">
+        <div class="flex-shrink-0 w-7">
+            <img :src="post.user?.avatar_url" alt="avatar" class="rounded-full w-7 h-7" v-if="post.user">
         </div>
-        <div class="w-full ">
+        <div class="w-full">
             <div>
-                <div>{{ post.user.username }}</div>
+                <div>{{ post.user?.username || '[user deleted]' }}</div>
                 <div class="text-sm text-gray-500">Posted {{ post.created_at.human }}</div>
             </div>
             <div class="mt-3">

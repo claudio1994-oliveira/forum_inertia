@@ -35,7 +35,7 @@ const participants = computed(() => {
                 </div>
                 <div>
                     <Link :href="route('discussion.show', discussion.slug)" class="inline-block mt-6 text-sm">
-                        Last post by {{ discussion.latest_post.user.username }} at <time :datetime="discussion.latest_post.created_at.datetime"
+                        Last post by {{ discussion.latest_post.user?.username || '[user deleted]' }} at <time :datetime="discussion.latest_post.created_at.datetime"
                         :title="discussion.latest_post.created_at.datetime">{{ discussion.latest_post.created_at.human }}</time>
                     </Link>
                 </div>
