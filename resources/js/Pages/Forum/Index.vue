@@ -7,6 +7,7 @@ import Select from "@/Components/Select.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import Discussion from "@/Components/Forum/Discussion.vue";
 import Pagination from "@/Components/Pagination.vue";
+import Navgation from "@/Components/Forum/Navigation.vue";
 
 const page = usePage();
 const topics = page.props.topics;
@@ -52,11 +53,7 @@ defineProps({
 
         </div>
         <template #side>
-            <div class="bg-white shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    Sidebar
-                </div>
-            </div>
+          <Navgation />
         </template>
     </ForumLayout>
 </template>
