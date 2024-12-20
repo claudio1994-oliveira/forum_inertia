@@ -14,6 +14,7 @@ const topics = page.props.topics;
 
 defineProps({
     discussions: Object,
+    query: Object
 })
 
 </script>
@@ -53,7 +54,7 @@ defineProps({
 
         </div>
         <template #side>
-          <Navgation />
+          <Navgation :query="query" />
         </template>
     </ForumLayout>
 </template>
