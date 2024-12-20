@@ -1,6 +1,7 @@
 <script setup>
 import {Link} from '@inertiajs/vue3';
 import { computed } from 'vue';
+import pluralize from 'pluralize';
 
 const props = defineProps({
     discussion: Object,
@@ -52,6 +53,8 @@ const participants = computed(() => {
 
                     </div>
                     <span class="text-sm text-gray-600" v-if="discussion.participants.length > 3">+ {{discussion.participants.length - 3  }} more</span>
+                    <span class="text-sm text-gray-600"> {{ pluralize('replies', discussion.replies_count, true) }}</span>
+
                 </div>
 
             </div>

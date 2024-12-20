@@ -14,6 +14,7 @@ class DiscussionShowController extends Controller
     public function __invoke(Discussion $discussion)
     {
         $discussion->load(['topic']);
+        $discussion->loadCount('replies');
         return Inertia::render('Forum/Show', [
             'discussion' => DiscussionResource::make($discussion),
             'posts' => PostResource::collection(Post::whereBelongsTo($discussion)
