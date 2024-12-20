@@ -15,7 +15,7 @@ class ForumIndexController extends Controller
                 Discussion::query()
                     ->with(['topic', 'post', 'latestPost.user', 'participants'])
                     ->orderByPinned()
-                    ->latest()
+                    ->orderByLastPost()
                     ->paginate(10)
             ),
         ]);
