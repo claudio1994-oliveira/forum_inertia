@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discussion;
+use Illuminate\Http\Request;
+use App\Http\Query\MineQueryFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use App\Http\Query\NoRepliesQueryFilter;
 use App\Http\Resources\DiscussionResource;
-use Illuminate\Http\Request;
+use App\Http\Query\ParticipatingQueryFilter;
 
 class ForumIndexController extends Controller
 {
@@ -35,6 +37,8 @@ class ForumIndexController extends Controller
     {
         return [
             AllowedFilter::custom('noreplies', new NoRepliesQueryFilter),
+            AllowedFilter::custom('mine', new MineQueryFilter),
+            AllowedFilter::custom('participating', new ParticipatingQueryFilter),
 
         ];
     }

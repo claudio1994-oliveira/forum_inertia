@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 
 Route::get('/', ForumIndexController::class)->name('home');
-Route::get('/{discussion:slug}', DiscussionShowController::class)->name('discussion.show');
+Route::get('discussions/{discussion:slug}', DiscussionShowController::class)->name('discussion.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
