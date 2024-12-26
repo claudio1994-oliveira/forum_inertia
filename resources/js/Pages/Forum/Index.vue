@@ -1,6 +1,6 @@
 <script setup>
 
-import {Head} from '@inertiajs/vue3';
+import {Head, router} from '@inertiajs/vue3';
 import ForumLayout from "@/Layouts/ForumLayout.vue";
 import {usePage} from "@inertiajs/vue3";
 import Select from "@/Components/Select.vue";
@@ -8,6 +8,9 @@ import InputLabel from "@/Components/InputLabel.vue";
 import Discussion from "@/Components/Forum/Discussion.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Navgation from "@/Components/Forum/Navigation.vue";
+import _omitBy from 'lodash.omitby'
+import _isEmpty from 'lodash.isempty'
+
 
 const page = usePage();
 const topics = page.props.topics;
@@ -16,6 +19,17 @@ defineProps({
     discussions: Object,
     query: Object
 })
+
+const filterTopic = (e) => {
+   router.visit('/', {
+       data: _omitBy(
+           {
+               'filter[topic]': e.target.value
+           }, _isEmpty
+       ),
+       preserveScroll: true
+   })
+}
 
 </script>
 
@@ -32,9 +46,17 @@ defineProps({
                     <div class="p-6 text-gray-900">
                         <div>
                             <InputLabel for="select" value="Select a topic" class="sr-only"/>
-                            <Select id="select">
+                            <Select
+                                id="select"
+                                v-on:change="filterTopic"
+
+                            >
                                 <option value="">All topics</option>
-                                <option :value="topic.slug" v-for="topic in topics" :key="topic.id">
+                                <option :value="topic.slug"
+                                        v-for="topic in topics"
+                                        :key="topic.id"
+                                        :selected="query.filter?.topic === topic.slug"
+                                >
                                     {{ topic.name }}
                                 </option>
                             </Select>
