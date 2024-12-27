@@ -4,12 +4,11 @@ import FixedFormWrapper from "@/Components/Forum/FixedFormWrapper.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
-import Select from "@/Components/Select.vue";
 import TextArea from "@/Components/TextArea.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import useCreateDiscussion from "@/Components/Composables/useCreateDiscussion.js";
 
-const {visible, hideCreateDiscussionForm} = useCreateDiscussion()
+const {visible, hideCreateDiscussionForm, form} = useCreateDiscussion()
 </script>
 
 <template>
@@ -31,28 +30,34 @@ const {visible, hideCreateDiscussionForm} = useCreateDiscussion()
                 id="title"
                 type="text"
                 class="w-full"
+                placeholder="Discussion title"
+                v-model="form.title"
             />
-            <!--            <InputError class="mt-2" :message="form.errors.title"/>-->
+            <InputError class="mt-2" :message="form.errors.title"/>
           </div>
         </div>
 
-
         <div>
-          <InputLabel for="select" value="Select a topic" class="sr-only"/>
-          <Select id="select">
+          <InputLabel for="topic" value="Topic" class="sr-only"/>
+          <select id="topic" v-model="form.topic_id"
+                  class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
             <option value="">Choose a topic</option>
-            <option :value="topic.slug"
-                    v-for="topic in topics"
-                    :key="topic.id"
+            <option
+                :value="topic.id"
+                v-for="topic in $page.props.topics"
+                :key="topic.id"
             >
               {{ topic.name }}
             </option>
-          </Select>
+          </select>
+          <InputError class="mt-2" :message="form.errors.topic_id"/>
         </div>
 
       </div>
       <div class="mt-4">
-        <TextArea class="w-full" rows="6"/>
+        <InputLabel for="body" value="Body" class="sr-only"/>
+        <TextArea id="body" v-model="form.body" class="w-full" rows="6"/>
+        <InputError class="mt-2" :message="form.errors.body"/>
       </div>
     </template>
     <template v-slot:button>
