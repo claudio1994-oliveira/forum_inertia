@@ -10,8 +10,11 @@ import Pagination from "@/Components/Pagination.vue";
 import Navgation from "@/Components/Forum/Navigation.vue";
 import _omitBy from 'lodash.omitby'
 import _isEmpty from 'lodash.isempty'
+import useCreateDiscussion from "@/Components/Composables/useCreateDiscussion.js";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 
+const {showCreateDiscussionForm} = useCreateDiscussion()
 const page = usePage();
 const topics = page.props.topics;
 
@@ -21,14 +24,14 @@ defineProps({
 })
 
 const filterTopic = (e) => {
-   router.visit('/', {
-       data: _omitBy(
-           {
-               'filter[topic]': e.target.value
-           }, _isEmpty
-       ),
-       preserveScroll: true
-   })
+    router.visit('/', {
+        data: _omitBy(
+            {
+                'filter[topic]': e.target.value
+            }, _isEmpty
+        ),
+        preserveScroll: true
+    })
 }
 
 </script>
@@ -69,14 +72,17 @@ const filterTopic = (e) => {
                                     :discussion="discussion"/>
                         <Pagination :meta="discussions.meta"/>
                     </template>
-
                 </div>
-
             </div>
-
         </div>
         <template #side>
-          <Navgation :query="query" />
+            <PrimaryButton
+                v-if="$page.props.auth.user"
+                class="w-full flex justify-center h-10"
+                v-on:click="showCreateDiscussionForm">Start A Discussion
+            </PrimaryButton>
+
+            <Navgation :query="query"/>
         </template>
     </ForumLayout>
 </template>

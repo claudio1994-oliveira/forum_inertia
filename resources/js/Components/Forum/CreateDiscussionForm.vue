@@ -7,12 +7,19 @@ import InputError from "@/Components/InputError.vue";
 import Select from "@/Components/Select.vue";
 import TextArea from "@/Components/TextArea.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import useCreateDiscussion from "@/Components/Composables/useCreateDiscussion.js";
+
+const {visible, hideCreateDiscussionForm} = useCreateDiscussion()
 </script>
 
 <template>
-  <FixedFormWrapper>
+  <FixedFormWrapper v-if="visible">
     <template v-slot:header>
-      <h1 class="text-lg font-medium">New Discussion</h1>
+      <div class="flex items-center justify-between">
+        <h1 class="text-lg font-medium">New Discussion</h1>
+        <button v-on:click="hideCreateDiscussionForm">&times;</button>
+      </div>
+
     </template>
     <template v-slot:main>
       <div class="flex items-start space-x-3">
