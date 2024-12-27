@@ -7,10 +7,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Str;
 
 class Discussion extends Model
 {
     protected $fillable = ['title', 'slug', 'topic_id', 'user_id'];
+
+
+    protected static function booted(): void
+    {
+        static::created(function ($discussion) {
+            $discussion->update(['slug' => $discussion->title]);
+        });
+    }
+
+    public function setSlugAttribute($value): void
+    {
+        $this->attributes['slug'] = $this->id.'-'.Str::slug($value);
+    }
 
     public function scopeOrderByPinned($query)
     {

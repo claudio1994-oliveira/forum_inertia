@@ -9,10 +9,20 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import useCreateDiscussion from "@/Components/Composables/useCreateDiscussion.js";
 
 const {visible, hideCreateDiscussionForm, form} = useCreateDiscussion()
+
+const createDiscussion = () => {
+  form.post(route('discussion.store'), {
+    onSuccess: () => {
+      form.reset()
+      hideCreateDiscussionForm()
+    }
+  })
+}
+
 </script>
 
 <template>
-  <FixedFormWrapper v-if="visible">
+  <FixedFormWrapper v-if="visible" v-on:submit.prevent="createDiscussion">
     <template v-slot:header>
       <div class="flex items-center justify-between">
         <h1 class="text-lg font-medium">New Discussion</h1>
