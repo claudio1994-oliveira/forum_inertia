@@ -16,6 +16,7 @@ class DiscussionShowController extends Controller
         $discussion->load(['topic']);
         $discussion->loadCount('replies');
         return Inertia::render('Forum/Show', [
+            'query' => (object)request()->query(),
             'discussion' => DiscussionResource::make($discussion),
             'posts' => PostResource::collection(Post::whereBelongsTo($discussion)
                 ->with(['user', 'discussion'])

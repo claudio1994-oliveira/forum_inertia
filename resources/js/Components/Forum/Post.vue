@@ -20,7 +20,7 @@ defineProps({
                 <div class="text-sm text-gray-500">Posted {{ post.created_at.human }}</div>
             </div>
             <div class="mt-3">
-                {{ post.body }}
+                <div v-html="post.body_markdown" class="markdown"></div>
             </div>
 
         </div>
