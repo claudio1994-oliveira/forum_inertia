@@ -22,7 +22,7 @@ const createDiscussion = () => {
 </script>
 
 <template>
-    <FixedFormWrapper v-if="visible" v-on:submit.prevent="createDiscussion">
+    <FixedFormWrapper v-if="visible" v-on:submit.prevent="createDiscussion" :form="form">
         <template v-slot:header>
             <div class="flex items-center justify-between">
                 <h1 class="text-lg font-medium">New Discussion</h1>

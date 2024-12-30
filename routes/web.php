@@ -3,6 +3,7 @@
 use App\Http\Controllers\DiscussionShowController;
 use App\Http\Controllers\DiscussionStoreController;
 use App\Http\Controllers\ForumIndexController;
+use App\Http\Controllers\MarkdownController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,8 @@ use Inertia\Inertia;
 Route::get('/', ForumIndexController::class)->name('home');
 Route::get('discussions/{discussion:slug}', DiscussionShowController::class)->name('discussion.show');
 
+Route::post('/markdown', MarkdownController::class)->name('markdown');
+
 Route::middleware('auth')->group(function () {
     Route::post('discussions', DiscussionStoreController::class)->name('discussion.store');
 
@@ -20,4 +23,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -1,10 +1,27 @@
 <script setup>
 
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
 const markdownPreviewEnabled = ref(false);
-const markdownPreviewHtml = ref(false);
+const markdownPreviewHtml = ref('');
 const markdownPreviewLoading = ref(false);
+
+const props = defineProps({
+    form: Object
+})
+
+watch(markdownPreviewEnabled, (toggled) => {
+    if (!toggled) {
+        return
+    }
+
+    markdownPreviewLoading.value = true
+
+    axios.post(route('markdown'), {body: props.form.body}).then((response) => {
+        markdownPreviewHtml.value = response.data.html
+        markdownPreviewLoading.value = false
+    })
+})
 
 </script>
 
